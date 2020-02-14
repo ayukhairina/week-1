@@ -1,0 +1,100 @@
+-fungsi nodemon
+npm init --> setiap buat project
+--g -> global
+
+nodemon index.js -> diganti, 
+package.json tambah start + nama file -> 
+nodemon index.js x -> npm start 
+
+npm install morgan  -> install package morgan
+
+post data, intall packafe body-parser
+npmjs.com
+pahami prepaid statement
+
+parameter = harus di tulisakan parameternya
+
+put -> dipake saat mau ganti semuanya
+patch -> bisa ganti beberapa parameter
+
+app.get('/', (request, response) => {
+    connection.query('SELECT * FROM book', (error, result) => {
+        if (error) console.log(error)
+        response.json(result)
+    })
+})
+
+app.get('/', (request, response) => {
+   connection.query('INSERT INTO book SET ?', data, (error, result) => {
+       if (error) console.log (error)
+       response.json(result)
+   } )
+   
+    //response.send('Helo Arkademian!')
+    //bentuk lain
+    //response.json({name: 'Wahyu Khairina'})
+})
+
+//get search by name
+app.get
+
+
+//get satu data
+app.get('/:bookId', (request, response) => {
+    const bookId = request.params.bookId
+    console.log(bookId)
+
+    connection.query('SELECT * FROM book WHERE id = ?', bookId, (error, result) => {
+        if (error) console.log(error)
+        response.json(result)
+    })
+})
+
+app.post('/', (request, response) => {
+    //const name = request.body.name
+    const data = {
+        name: request.body.name,
+        writer: request.body.writer,
+        description: request.body.description,
+        publisher: request.body.publisher,
+        year: request.body.year,
+        stock: request.body.stock,
+        genre: request.body.genre,
+        created_at : new Date(),
+        updated_at : new Date()
+    }
+
+    connection.query('INSERT INTO book SET ?', data, (error,result) => {
+        if (error) console.log(error)
+        response.json(result)
+    })
+})
+
+app.pacth('/:bookId', (request, response) => {
+    const bookId = request.params.bookId
+
+    const data = {
+        name: request.body.name,
+        writer: request.body.writer,
+        description: request.body.description,
+        publisher: request.body.publisher,
+        year: request.body.year,
+        stock: request.body.stock,
+        genre: request.body.genre,
+        updated_at : new Date()
+    }
+
+    connection.query('UPDATE INTO book SET ? WHERE id = ?', [data, bookId], (error, result) => { //dalam bentuk array karna ada 2 ?
+        if (error) console.log(error)
+        response.json(result)
+    })
+})
+
+app.delete('/:bookId', (request, response) => {
+    const bookId = request.params.bookId
+    
+    connection.query('DELETE FROM book WHERE id = ?', bookId, (error, result) => {
+        if (error) console.log(error)
+        response.json(result)
+    })
+})
